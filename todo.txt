@@ -1,0 +1,36 @@
+-adicionar uma lista de entradas frequentes com uma opção de cadastrar entradas frequentes
+-corrigir o erro ao usar barra no nome do registro
+-corrigir o erro que apaga dois registros ao mesmo tempo
+
+#####################################################################################
+
+    |||||||||      Nome do produto
+    ||Thumb||     valor    valor atual
+    |||||||||     data    [% do 1º valor]
+
+--estrutura:
+    -Nome do produto
+    -Valor inicial
+        -quando esse valor for setado a data atual será colocada no campo abaixo
+    -Segundo campo de valor
+        -Esse valor serve de comparação
+        -Quando esse valor é menor que o valor inicial ao clicar na 
+        % ele substitui o inicial e uma nova data é gerada
+    -% do valor inicial, se o valor for menor que 100% esse botão serve para substituir o valor inicial pelo novo valor 
+    -Thumbnail do produto
+    -Link do produto (na thumb)
+
+
+=====================================================================================
+
+
+-LOCALSTORAGE!
+-adicionar uma opção no menu select que respeita o sinal do valor verifica o v-model do campo valor e preenche automaticamente o campo categoria
+-valor total fixo embaixo com o fundo branco    
+-se colocar o valor negativo adicionar como débito automaticamente
+-Quando clicar enter no menu que adiciona entrada focar no proximo input
+-excluir registros
+-excluir entradas
+-verificar o nome da Entrada que será adicionado e caso já exista apresentar uma mensagem de erro
+
+#####################################################################################
