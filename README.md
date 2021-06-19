@@ -1,24 +1,17 @@
 # meu-dinheiro
+Esse projeto visa facilitar o registro e a organização de débiitos e proventos.
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
+## Começando
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+Para executar o projeto, será necessário instalar os seguintes programas:
+* Vue.js
+* Tailwind.css
 ```
 
-### Lints and fixes files
+## Desenvolvimento
 ```
-npm run lint
+Para iniciar o desenvolvimento, é necessário clonar o projeto do GitHub num diretório de sua preferência:
+> cd "diretorio de sua preferencia"
+> git clone https://github.com/DiegoPaula/meu-dinheiro
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
