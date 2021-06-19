@@ -1,27 +1,45 @@
 <template>
-  <div class="text-center font-black rounded-xl bg-white bg-opacity-25 pb-20">
+  <div class="text-center font-black rounded-xl bg-white bg-opacity-40 pb-20">
     <h1 class="text-6xl leading-normal capitalize h-20">
-      {{registro.nomeRegistro.replace('-', '/')}}
-    </h1>    
-    
+      {{ registro.nomeRegistro.replace("-", "/") }}
+    </h1>
+
     <form class="my-10 flex justify-center items-center">
-      <input class="px-3 py-1 h-8 w-60 bg-white border-0 shadow outline-none"
-      placeholder="Nome da Entrada" v-model.lazy="entradaForm.nomeEntrada"
-      type="text" name="nomeEntrada" id="nomeEntrada"
-      @keyup.enter="selectNext($event.target)">
-      
-      <input class="px-3 py-1 h-8 w-28 bg-white border-l shadow outline-none"
-      placeholder="Valor" v-model.lazy="entradaForm.valorEntrada"
-      type="number" name="valorEntrada" id="valorEntrada"
-      @keyup.enter="criarEntrada($event.target)">
-      
-      <input class="px-3 py-1 h-8 bg-white border-l shadow outline-none"
-      type="button" value="+" @click="criarEntrada($event.target)">
+      <input
+        class="px-3 py-1 h-8 w-60 bg-white border-0 shadow outline-none"
+        placeholder="Nome da Entrada"
+        v-model.lazy="entradaForm.nomeEntrada"
+        type="text"
+        name="nomeEntrada"
+        id="nomeEntrada"
+        @keyup.enter="selectNext($event.target)"
+      />
+
+      <input
+        class="px-3 py-1 h-8 w-28 bg-white border-l shadow outline-none"
+        placeholder="Valor"
+        v-model.lazy="entradaForm.valorEntrada"
+        type="number"
+        name="valorEntrada"
+        id="valorEntrada"
+        @keyup.enter="criarEntrada($event.target)"
+      />
+
+      <input
+        class="px-3 py-1 h-8 bg-white border-l shadow outline-none"
+        type="button"
+        value="+"
+        @click="criarEntrada($event.target)"
+      />
     </form>
 
-    <table 
-    v-show="(total(registro.conteudoRegistro.débitos) > 0 || total(registro.conteudoRegistro.créditos) > 0)"
-    class="w-2/3 h-auto flex  flex-wrap justify-center mx-auto ">
+    <table
+      v-show="
+        total(registro.conteudoRegistro.débitos) > 0 ||
+        total(registro.conteudoRegistro.créditos) > 0
+      "
+      class="w-2/3 h-auto flex flex-wrap justify-center mx-auto"
+    >
       <td class="w-1/2 border-2 pb-9 min-h-full relative">
         <tr class="flex justify-center bg-white text-red-500">
           <th>Débito</th>
@@ -30,11 +48,19 @@
           <th class="w-1/2">Nome</th>
           <th class="w-1/2">Valor</th>
         </tr>
-        <tr class="flex justify-center border-b"
-        v-for="item in registro.conteudoRegistro.débitos" :key="item.nomeEntrada"
-        @click="excluirEntrada(item.nomeEntrada)" title="Clique para excluir">
-          <td class="w-1/2 capitalize overflow-hidden">{{ item.nomeEntrada }}</td>
-          <td class="w-1/2 overflow-hidden">{{ formatter.format(Number(item.valorEntrada)) }}</td>
+        <tr
+          class="flex justify-center border-b"
+          v-for="item in registro.conteudoRegistro.débitos"
+          :key="item.nomeEntrada"
+          @click="excluirEntrada(item.nomeEntrada)"
+          title="Clique para excluir"
+        >
+          <td class="w-1/2 capitalize overflow-hidden">
+            {{ item.nomeEntrada }}
+          </td>
+          <td class="w-1/2 overflow-hidden">
+            {{ formatter.format(Number(item.valorEntrada)) }}
+          </td>
         </tr>
         <tr class="flex h-8 absolute m-0.5 bottom-0 right-0 left-0 bg-white">
           <td class="w-full text-2xl text-red-500">
@@ -42,7 +68,7 @@
           </td>
         </tr>
       </td>
-      <td class="w-1/2 border-2 pb-9 relative ">
+      <td class="w-1/2 border-2 pb-9 relative">
         <tr class="flex justify-center bg-white text-green-500">
           <th>Crédito</th>
         </tr>
@@ -50,11 +76,19 @@
           <th class="w-1/2">Nome</th>
           <th class="w-1/2">Valor</th>
         </tr>
-        <tr class="flex justify-center border-b"
-        v-for="item in registro.conteudoRegistro.créditos" :key="item.nomeEntrada"
-        @click="excluirEntrada(item.nomeEntrada)" title="Clique para excluir">
-          <td class="w-1/2 capitalize overflow-hidden">{{ item.nomeEntrada }}</td>
-          <td class="w-1/2 overflow-hidden">{{ formatter.format(Number(item.valorEntrada)) }}</td>
+        <tr
+          class="flex justify-center border-b"
+          v-for="item in registro.conteudoRegistro.créditos"
+          :key="item.nomeEntrada"
+          @click="excluirEntrada(item.nomeEntrada)"
+          title="Clique para excluir"
+        >
+          <td class="w-1/2 capitalize overflow-hidden">
+            {{ item.nomeEntrada }}
+          </td>
+          <td class="w-1/2 overflow-hidden">
+            {{ formatter.format(Number(item.valorEntrada)) }}
+          </td>
         </tr>
         <tr class="flex h-8 absolute m-0.5 bottom-0 right-0 left-0 bg-white">
           <td class="w-full text-2xl text-green-500">
@@ -63,21 +97,46 @@
         </tr>
       </td>
       <tr
-      v-show="(total(registro.conteudoRegistro.débitos) > 0 && total(registro.conteudoRegistro.créditos) > 0)"
-      class="flex justify-center bg-white w-full text-2xl"
-      :class="[total(registro.conteudoRegistro.débitos) > total(registro.conteudoRegistro.créditos) ? 'text-red-500' : 'text-green-500']">
-        {{ formatter.format(saldo()) }}
+        v-show="
+          total(registro.conteudoRegistro.débitos) > 0 &&
+          total(registro.conteudoRegistro.créditos) > 0
+        "
+        class="flex justify-center bg-white w-full text-2xl"
+        :class="[
+          total(registro.conteudoRegistro.débitos) >
+          total(registro.conteudoRegistro.créditos)
+            ? 'text-red-500'
+            : 'text-green-500',
+        ]"
+      >
+        {{
+          formatter.format(saldo())
+        }}
       </tr>
     </table>
 
-    
-    <router-link :to="'/controle'" class="flex justify-center items-center fixed bottom-5 text-2xl text-white w-8 h-8 rounded-full">
-      <button @click="removerRegistro(indexRegistro)" title="Excluir Registro"
-      class="bg-red-600 border border-red-700 w-8 h-8 rounded-full">
+    <router-link
+      :to="'/controle'"
+      class="
+        flex
+        justify-center
+        items-center
+        fixed
+        bottom-5
+        text-2xl text-white
+        w-8
+        h-8
+        rounded-full
+      "
+    >
+      <button
+        @click="removerRegistro(indexRegistro)"
+        title="Excluir Registro"
+        class="bg-red-600 border border-red-700 w-8 h-8 rounded-full"
+      >
         X
       </button>
     </router-link>
-
   </div>
 </template>
 
@@ -88,7 +147,10 @@ export default {
   data() {
     return {
       registro: {},
-      formatter: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}),
+      formatter: new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
       indexRegistro: 0,
       entradaForm: {
         nomeEntrada: "",
@@ -97,14 +159,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions([
-      'adicionarEntrada',
-      'removerRegistro',
-      'removerEntrada',
-    ]),
+    ...mapActions(["adicionarEntrada", "removerRegistro", "removerEntrada"]),
     localizarRegistro(lista, nome) {
       let index = 0;
-      lista.forEach( item => {
+      lista.forEach((item) => {
         if (item.nomeRegistro == nome) {
           this.registro = item;
           this.indexRegistro = index;
@@ -114,28 +172,36 @@ export default {
       });
     },
     validarEntrada() {
-      const registro = this.listaDeRegistros[this.indexRegistro].conteudoRegistro;
+      const registro =
+        this.listaDeRegistros[this.indexRegistro].conteudoRegistro;
       let valido = true;
 
-      if (this.entradaForm.valorEntrada == "" || this.entradaForm.nomeEntrada == "") {
+      if (
+        this.entradaForm.valorEntrada == "" ||
+        this.entradaForm.nomeEntrada == ""
+      ) {
         valido = false;
-      };
-      registro.débitos.forEach(item => {
+      }
+      registro.débitos.forEach((item) => {
         if (item.nomeEntrada == this.entradaForm.nomeEntrada) {
-          valido = false
+          valido = false;
         }
       });
-      registro.créditos.forEach(item => {
+      registro.créditos.forEach((item) => {
         if (item.nomeEntrada == this.entradaForm.nomeEntrada) {
-          valido = false
+          valido = false;
         }
       });
       return valido;
     },
     criarEntrada(target) {
       if (this.validarEntrada()) {
-        const categoria = this.entradaForm.valorEntrada >= 0 ? 'crédito' : 'débito';
-        this.entradaForm.valorEntrada = this.entradaForm.valorEntrada >= 0 ? this.entradaForm.valorEntrada : this.entradaForm.valorEntrada * -1
+        const categoria =
+          this.entradaForm.valorEntrada >= 0 ? "crédito" : "débito";
+        this.entradaForm.valorEntrada =
+          this.entradaForm.valorEntrada >= 0
+            ? this.entradaForm.valorEntrada
+            : this.entradaForm.valorEntrada * -1;
         const entrada = {
           indexRegistro: this.indexRegistro,
           entrada: {
@@ -145,47 +211,45 @@ export default {
           },
         };
         this.adicionarEntrada(entrada);
-      }
-      else {
+      } else {
         window.alert("Nome de entrada Invalida");
       }
-      target.parentElement.firstChild.focus()
+      target.parentElement.firstChild.focus();
       this.entradaForm = {
         nomeEntrada: "",
         valorEntrada: "",
-      }
+      };
     },
     excluirEntrada(nome) {
       const indexRegistro = this.indexRegistro;
       const excluir = {
         indexRegistro,
-        nome
+        nome,
       };
       this.removerEntrada(excluir);
     },
     total(lista) {
       let total = 0;
-      lista.forEach(item => {
+      lista.forEach((item) => {
         total += Number(item.valorEntrada);
-      })
-      return(total)
+      });
+      return total;
     },
     saldo() {
       const crédito = this.total(this.registro.conteudoRegistro.créditos);
       const débito = this.total(this.registro.conteudoRegistro.débitos);
-      const saldo = ((crédito - débito) < 0 ? (crédito - débito) * -1 : (crédito - débito));
+      const saldo =
+        crédito - débito < 0 ? (crédito - débito) * -1 : crédito - débito;
       return saldo;
     },
     selectNext(target) {
-      if(target.value !== "") {
-        target.nextElementSibling.focus()
+      if (target.value !== "") {
+        target.nextElementSibling.focus();
       }
     },
   },
   computed: {
-    ...mapState([
-      'listaDeRegistros'
-    ]),
+    ...mapState(["listaDeRegistros"]),
   },
   mounted() {
     const nomeRegistro = this.$route.params.nomeRegistro;

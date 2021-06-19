@@ -1,7 +1,8 @@
-const colors = require('./node_modules/tailwindcss/colors');
+const colors = require("./node_modules/tailwindcss/colors");
 
 module.exports = {
-  purge: [],
+  purge: [
+  ],
   darkMode: false,
   theme: {
     extend: {
@@ -19,4 +20,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
