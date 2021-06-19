@@ -1,5 +1,5 @@
 # meu-dinheiro
-Esse projeto visa facilitar o registro e a organização de débiitos e proventos.
+Esse projeto visa facilitar o registro e a organização de débitos e proventos.
 
 
 ## Começando
